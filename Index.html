@@ -1,314 +1,74 @@
 <!DOCTYPE html>
-
-  
-
-
-<body> 
-<script>
-  const form = document.getElementById('questionForm');
-  const questionList = document.getElementById('questionList');
-
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-
-    const name = document.getElementById('name').value.trim();
-    const question = document.getElementById('question').value.trim();
-
-    if (name && question) {
-      const div = document.createElement('div');
-      div.classList.add('question');
-      div.innerHTML = `
-        <strong>${name} fragt:</strong>
-        <p>${question}</p>
-        <div class="answers"></div>
-        <form class="answer-form">
-          <input type="text" placeholder="Dein Name" class="answer-name" required />
-          <textarea placeholder="Deine Antwort" class="answer-text" required></textarea>
-          <button type="submit">Antworten</button>
-        </form>
-      `;
-      questionList.prepend(div);
-
-      const answerForm = div.querySelector('.answer-form');
-      const answersDiv = div.querySelector('.answers');
-
-      answerForm.addEventListener('submit', function (e) {
-        e.preventDefault();
-        const answerName = answerForm.querySelector('.answer-name').value.trim();
-        const answerText = answerForm.querySelector('.answer-text').value.trim();
-
-        if (answerName && answerText) {
-          const answerDiv = document.createElement('div');
-          answerDiv.classList.add('answer');
-          answerDiv.innerHTML = `
-            <strong>${answerName} antwortet:</strong>
-            <p>${answerText}</p>
-            <div class="like-dislike">
-              <button class="like">👍 <span>0</span></button>
-              <button class="dislike">👎 <span>0</span></button>
-            </div>
-          `;
-          answersDiv.appendChild(answerDiv);
-          answerForm.reset();
-
-          const likeBtn = answerDiv.querySelector('.like');
-          const dislikeBtn = answerDiv.querySelector('.dislike');
-
-          likeBtn.addEventListener('click', () => {
-            const span = likeBtn.querySelector('span');
-            span.textContent = parseInt(span.textContent) + 1;
-          });
-
-          dislikeBtn.addEventListener('click', () => {
-            const span = dislikeBtn.querySelector('span');
-            span.textContent = parseInt(span.textContent) + 1;
-          });
-        }
-      });
-
-      form.reset();
-    }
-  });
-</script>
-<!DOCTYPE html>
 <html lang="de">
 <head>
   <meta charset="UTF-8" />
-  <title>Sportfragen Community</title>
-  <style>.answers {
-  margin-top: 10px;
-}
-.answer {
-  background: #f9f9f9;
-  padding: 10px;
-  border-radius: 8px;
-  margin-top: 10px;
-}
-.like-dislike {
-  margin-top: 5px;
-}
-.like-dislike button {
-  margin-right: 10px;
-}
-
-    body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
-      max-width: 700px;
-      margin: auto;
-      background-color: #f2f2f2;
-    }
-    h1 {
-      color: #333;
-    }
-    form, .answer-form {
-      background: white;
-      padding: 15px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      margin-bottom: 20px;
-    }
-    input, textarea, button {
-      width: 100%;
-      padding: 10px;
-      margin-top: 10px;
-      font-size: 16px;
-    }
-    .question {
-      background: white;
-      padding: 15px;
-      border-radius: 10px;
-      margin-bottom: 20px;
-      box-shadow: 0 0 5px rgba(0,0,0,0.1);
-    }
-    .answer {
-      background: #f9f9f9;
-      padding: 10px;
-      border-radius: 8px;
-      margin-top: 10px;
-    }
-    .like-dislike {
-      margin-top: 5px;
-    }
-    .like-dislike button {
-      margin-right: 10px;
-    }
-  </style>
-</head>
-<body>
-  <h1>Sportfragen Community</h1>
-  <p>Stelle hier deine Fragen rund um Sport, Fitness oder Training!</p>
-
-  <form id="questionForm">
-    <input type="text" id="name" placeholder="Dein Name" required />
-    <textarea id="question" placeholder="Was möchtest du wissen?" required></textarea>
-    <button type="submit">Frage stellen</button>
-  </form>
-
-  <h2>Antwort auf deine frage</h2>
-  <div id="questionList"></div>
-
-  <script>
-    const form = document.getElementById('questionForm');
-    const questionList = document.getElementById('questionList');
-
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-
-      const name = document.getElementById('name').value.trim();
-      const question = document.getElementById('question').value.trim();
-
-      if (name && question) {
-        const div = document.createElement('div');
-        div.classList.add('question');
-        div.innerHTML = `
-          <strong>${name} fragt:</strong>
-          <p>${question}</p>
-          <div class="answers"></div>
-          <form class="answer-form">
-            <input type="text" placeholder="Dein Name" class="answer-name" required />
-            <textarea placeholder="Deine Antwort" class="answer-text" required></textarea>
-            <button type="submit">Antworten</button>
-          </form>
-        `;
-        questionList.prepend(div);
-
-        const answerForm = div.querySelector('.answer-form');
-        const answersDiv = div.querySelector('.answers');
-
-        answerForm.addEventListener('submit', function (e) {
-          e.preventDefault();
-          const answerName = answerForm.querySelector('.answer-name').value.trim();
-          const answerText = answerForm.querySelector('.answer-text').value.trim();
-
-          if (answerName && answerText) {
-            const answerDiv = document.createElement('div');
-            answerDiv.classList.add('answer');
-            answerDiv.innerHTML = `
-              <strong>${answerName} antwortet:</strong>
-              <p>${answerText}</p>
-              <div class="like-dislike">
-                <button class="like">👍 <span>0</span></button>
-                <button class="dislike">👎 <span>0</span></button>
-              </div>
-            `;
-            answersDiv.appendChild(answerDiv);
-            answerForm.reset();
-
-            const likeBtn = answerDiv.querySelector('.like');
-            const dislikeBtn = answerDiv.querySelector('.dislike');
-
-            likeBtn.addEventListener('click', () => {
-              const span = likeBtn.querySelector('span');
-              span.textContent = parseInt(span.textContent) + 1;
-            });
-
-            dislikeBtn.addEventListener('click', () => {
-              const span = dislikeBtn.querySelector('span');
-              span.textContent = parseInt(span.textContent) + 1;
-            });
-          }
-        });
-
-        form.reset();
-      }
-    });
-  </script>
-</body>
-</html>
-<form id="questionForm">
-  <input type="text" id="name" placeholder="Dein Name" required />
-  <textarea id="question" placeholder="Was wäre deine antwort um dieser person zu helfen " required></textarea>
-  <button type="submit">Frage beantworten
-</button>
-</form>
-<script>
-  const form = document.getElementById('questionForm');
-  const questionList = document.getElementById('questionList');
-
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
-
-    const name = document.getElementById('name').value.trim();
-    const question = document.getElementById('question').value.trim();
-
-    if (name && question) {
-      const div = document.createElement('div');
-      div.classList.add('question');
-      div.innerHTML = `
-        <strong>${name} fragt:</strong>
-        <p>${question}</p>
-        <div class="answers"></div>
-        <form class="answer-form">
-          <input type="text" placeholder="Dein Name" class="answer-name" required />
-          <textarea placeholder="Deine Antwort" class="answer-text" required></textarea>
-          <button type="submit">Antworten</button>
-        </form>
-      `;
-      questionList.prepend(div);
-
-      const answerForm = div.querySelector('.answer-form');
-      const answersDiv = div.querySelector('.answers');
-
-      answerForm.addEventListener('submit', function (e) {
-        e.preventDefault();
-        const answerName = answerForm.querySelector('.answer-name').value.trim();
-        const answerText = answerForm.querySelector('.answer-text').value.trim();
-
-        if (answerName && answerText) {
-          const answerDiv = document.createElement('div');
-          answerDiv.classList.add('answer');
-          answerDiv.innerHTML = `
-            <strong>${answerName} antwortet:</strong>
-            <p>${answerText}</p>
-            <div class="like-dislike">
-              <button class="like">👍 <span>0</span></button>
-              <button class="dislike">👎 <span>0</span></button>
-            </div>
-          `;
-          answersDiv.appendChild(answerDiv);
-          answerForm.reset();
-
-          const likeBtn = answerDiv.querySelector('.like');
-          const dislikeBtn = answerDiv.querySelector('.dislike');
-
-          likeBtn.addEventListener('click', () => {
-            const span = likeBtn.querySelector('span');
-            span.textContent = parseInt(span.textContent) + 1;
-          });
-
-          dislikeBtn.addEventListener('click', () => {
-            const span = dislikeBtn.querySelector('span');
-            span.textContent = parseInt(span.textContent) + 1;
-          });
-        }
-      });
-
-      form.reset();
-    }
-  });
-</script>
-<head>
-  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Sportfragen Community</title>
   <style>
-    /* Hier fügst du den verbesserten CSS-Code ein */
     body {
-      font-family: 'Arial', sans-serif;
+      font-family: Arial, sans-serif;
       background-color: #f5f5f5;
-      color: #333;
-      padding: 20px;
       margin: 0;
+      padding: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
 
-    h1 {
-      color: #3498db;
+    header {
+      background-color: #3498db;
+      color: white;
+      padding: 20px;
+      width: 100%;
       text-align: center;
-      font-size: 36px;
-      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 0 0 12px 12px;
+    }
+
+    .layout {
+      display: flex;
+      width: 100%;
+      max-width: 1200px;
+      padding: 20px;
+      gap: 20px;
+    }
+
+    aside {
+      width: 250px;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      height: fit-content;
+    }
+
+    aside h2 {
+      font-size: 20px;
+      margin-bottom: 15px;
+      color: #3498db;
+    }
+
+    aside ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    aside li {
+      margin-bottom: 10px;
+    }
+
+    aside a {
+      text-decoration: none;
+      color: #333;
+    }
+
+    aside a:hover {
+      text-decoration: underline;
+      color: #3498db;
+    }
+
+    main {
+      flex: 1;
     }
 
     form {
@@ -317,7 +77,6 @@
       border-radius: 8px;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
       width: 100%;
-      max-width: 600px;
       margin-bottom: 30px;
     }
 
@@ -330,25 +89,16 @@
       font-size: 16px;
     }
 
-    input:focus, textarea:focus, button:focus {
-      outline: none;
-      border-color: #3498db;
-    }
-
     button {
       background-color: #3498db;
       color: white;
       font-size: 16px;
       cursor: pointer;
-    }
-
-    button:hover {
-      background-color: #2980b9;
+      border: none;
     }
 
     #questionList {
       width: 100%;
-      max-width: 600px;
     }
 
     .question {
@@ -357,16 +107,6 @@
       margin-bottom: 20px;
       border-radius: 8px;
       box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .question strong {
-      color: #2c3e50;
-      font-size: 18px;
-    }
-
-    .question p {
-      color: #7f8c8d;
-      font-size: 16px;
     }
 
     .answers {
@@ -379,16 +119,6 @@
       margin-top: 10px;
       border-radius: 8px;
       box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
-    }
-
-    .answer strong {
-      color: #2c3e50;
-      font-size: 16px;
-    }
-
-    .answer p {
-      color: #7f8c8d;
-      font-size: 14px;
     }
 
     .like-dislike {
@@ -407,82 +137,176 @@
       font-size: 14px;
     }
 
-    .like-dislike button:hover {
-      background-color: #2ecc71;
-    }
-
     .like-dislike .dislike {
       background-color: #e74c3c;
     }
 
-    .like-dislike .dislike:hover {
-      background-color: #c0392b;
+    footer {
+      margin-top: 40px;
+      padding: 20px;
+      background-color: #ecf0f1;
+      text-align: center;
+      color: #7f8c8d;
+      width: 100%;
+      border-radius: 12px;
+      font-size: 14px;
+    }
+
+    #authSection {
+      background: #fff;
+      padding: 20px;
+      margin: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      width: 100%;
+    }
+
+    #authSection input {
+      width: 100%;
     }
   </style>
 </head>
-<script>
-  const form = document.getElementById('questionForm');
-  const questionList = document.getElementById('questionList');
+<body>
+  <div id="authSection">
+    <h2>Login / Registrierung</h2>
+    <input type="text" id="username" placeholder="Benutzername" required />
+    <input type="password" id="password" placeholder="Passwort" required />
+    <button onclick="register()">Registrieren</button>
+    <button onclick="login()">Einloggen</button>
+    <p id="authMessage"></p>
+  </div>
 
-  form.addEventListener('submit', function (e) {
-    e.preventDefault();
+  <header>
+    <h1>🏋️‍♂️ Sportfragen Community</h1>
+  </header>
 
-    const name = document.getElementById('name').value.trim();
-    const question = document.getElementById('question').value.trim();
+  <div class="layout">
+    <aside>
+      <h2>Kategorien</h2>
+      <ul>
+        <li><a href="#">Muskelaufbau</a></li>
+        <li><a href="#">Ausdauer</a></li>
+        <li><a href="#">Ernährung</a></li>
+        <li><a href="#">Abnehmen</a></li>
+      </ul>
+    </aside>
 
-    if (name && question) {
-      const div = document.createElement('div');
-      div.classList.add('question');
-      div.innerHTML = `
-        <strong>${name} fragt:</strong>
-        <p>${question}</p>
-        <div class="answers"></div>
-        <form class="answer-form">
-          <input type="text" placeholder="Dein Name" class="answer-name" required />
-          <textarea placeholder="Deine Antwort" class="answer-text" required></textarea>
-          <button type="submit">Antworten</button>
-        </form>
-      `;
-      questionList.prepend(div);
+    <main>
+      <form id="questionForm">
+        <textarea id="question" placeholder="Was möchtest du wissen?" required></textarea>
+        <button type="submit">Frage stellen</button>
+      </form>
 
-      const answerForm = div.querySelector('.answer-form');
-      const answersDiv = div.querySelector('.answers');
+      <h2>Fragen von Besuchern</h2>
+      <div id="questionList"></div>
+    </main>
+  </div>
 
-      answerForm.addEventListener('submit', function (e) {
-        e.preventDefault();
-        const answerName = answerForm.querySelector('.answer-name').value.trim();
-        const answerText = answerForm.querySelector('.answer-text').value.trim();
+  <footer>
+    <p>© 2025 Sportfragen Community | Mit ❤️ erstellt</p>
+  </footer>
 
-        if (answerName && answerText) {
-          const answerDiv = document.createElement('div');
-          answerDiv.classList.add('answer');
-          answerDiv.innerHTML = `
-            <strong>${answerName} antwortet:</strong>
-            <p>${answerText}</p>
-            <div class="like-dislike">
-              <button class="like">👍 <span>0</span></button>
-              <button class="dislike">👎 <span>0</span></button>
-            </div>
-          `;
-          answersDiv.appendChild(answerDiv);
-          answerForm.reset();
-
-          const likeBtn = answerDiv.querySelector('.like');
-          const dislikeBtn = answerDiv.querySelector('.dislike');
-
-          likeBtn.addEventListener('click', () => {
-            const span = likeBtn.querySelector('span');
-            span.textContent = parseInt(span.textContent) + 1;
-          });
-
-          dislikeBtn.addEventListener('click', () => {
-            const span = dislikeBtn.querySelector('span');
-            span.textContent = parseInt(span.textContent) + 1;
-          });
-        }
-      });
-
-      form.reset();
+  <script>
+    function register() {
+      const name = document.getElementById('username').value.trim();
+      const pw = document.getElementById('password').value.trim();
+      if (!name || !pw) return alert("Bitte alle Felder ausfüllen.");
+      if (localStorage.getItem('user_' + name)) {
+        alert("Benutzername existiert bereits.");
+        return;
+      }
+      localStorage.setItem('user_' + name, pw);
+      alert("Registrierung erfolgreich!");
     }
-  });
-</script>
+
+    function login() {
+      const name = document.getElementById('username').value.trim();
+      const pw = document.getElementById('password').value.trim();
+      const savedPw = localStorage.getItem('user_' + name);
+      if (!savedPw || savedPw !== pw) {
+        document.getElementById('authMessage').textContent = "Login fehlgeschlagen.";
+        return;
+      }
+      localStorage.setItem('loggedInUser', name);
+      showUser(name);
+    }
+
+    function showUser(name) {
+      document.getElementById('authSection').innerHTML = `
+        <p>👋 Willkommen, <strong>${name}</strong></p>
+        <button onclick="logout()">Abmelden</button>
+      `;
+    }
+
+    function logout() {
+      localStorage.removeItem('loggedInUser');
+      location.reload();
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const currentUser = localStorage.getItem('loggedInUser');
+      if (currentUser) showUser(currentUser);
+    });
+
+    const form = document.getElementById('questionForm');
+    const questionList = document.getElementById('questionList');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const user = localStorage.getItem('loggedInUser');
+      const question = document.getElementById('question').value.trim();
+      if (!user) {
+        alert("Du musst eingeloggt sein, um Fragen zu stellen.");
+        return;
+      }
+      if (question) {
+        const div = document.createElement('div');
+        div.classList.add('question');
+        div.innerHTML = `
+          <strong>${user} fragt:</strong>
+          <p>${question}</p>
+          <div class="answers"></div>
+          <form class="answer-form">
+            <textarea placeholder="Deine Antwort" class="answer-text" required></textarea>
+            <button type="submit">Antworten</button>
+          </form>
+        `;
+        questionList.prepend(div);
+        const answerForm = div.querySelector('.answer-form');
+        const answersDiv = div.querySelector('.answers');
+        answerForm.addEventListener('submit', function (e) {
+          e.preventDefault();
+          const answerText = answerForm.querySelector('.answer-text').value.trim();
+          const answerUser = localStorage.getItem('loggedInUser');
+          if (answerText && answerUser) {
+            const answerDiv = document.createElement('div');
+            answerDiv.classList.add('answer');
+            answerDiv.innerHTML = `
+              <strong>${answerUser} antwortet:</strong>
+              <p>${answerText}</p>
+              <div class="like-dislike">
+                <button class="like">👍 <span>0</span></button>
+                <button class="dislike">👎 <span>0</span></button>
+              </div>
+            `;
+            answersDiv.appendChild(answerDiv);
+            answerForm.reset();
+            const likeBtn = answerDiv.querySelector('.like');
+            const dislikeBtn = answerDiv.querySelector('.dislike');
+            likeBtn.addEventListener('click', () => {
+              const span = likeBtn.querySelector('span');
+              span.textContent = parseInt(span.textContent) + 1;
+            });
+            dislikeBtn.addEventListener('click', () => {
+              const span = dislikeBtn.querySelector('span');
+              span.textContent = parseInt(span.textContent) + 1;
+            });
+          }
+        });
+        form.reset();
+      }
+    });
+  </script>
+</body>
+</html>
